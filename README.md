@@ -57,6 +57,17 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 - RelicCondition: constants/RelicCondition、types/RelicCondition、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - PlanApprovalStatus: constants/PlanApprovalStatus、types/PlanApprovalStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
 - DamageSeverity: constants/DamageSeverity、types/DamageSeverity、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- DamageRecordStatus（OPEN 待处理 / CONVERTED 已转方案 / CLOSED 已关闭）：前端 `constants/DamageRecordStatus.ts`、`types/DamageRecordStatus.ts`、`constants/statusText.ts`、`constructors/DamageRecordConstructor.ts`、`mocks/seedData.ts`、病害页列表/转方案流程；后端 `constants/DamageRecordStatus.ts`、`constructors/DamageRecordDtoFactory.ts`、`services/DamageRecordService.ts`、`seed.ts`。
+
+## 严重病害转修复方案流程
+
+1. 病害记录页（`/damages`）顶部可按病害等级（低 / 中 / 高 / 严重）筛选列表。
+2. 仅高（HIGH）/ 严重（CRITICAL）病害显示“转方案”按钮，弹窗只需填写**方案标题**和**修复方法**，文物编号由后端按病害记录自动带入。
+3. 提交接口：`POST /api/damage-record/:id/convert-to-plan`。后端在 `DamageRecordService.convertToPlan` 中一次性完成：
+   - 同一病害已存在草稿（DRAFT）或待审批（SUBMITTED）方案时返回 `409 PLAN_ALREADY_EXISTS`，**原病害记录与原方案均不改动**；
+   - 非严重病害返回 `400 DAMAGE_NOT_SEVERE`，标题/修复方法缺失返回 `400 VALIDATION_FAILED`；
+   - 成功后创建待审批（SUBMITTED）方案、把病害状态置为 CONVERTED（已转方案）、把文物 `current_condition` 置为 IN_RESTORATION（修复中），并写入 `logTemplates` 中对应的方案创建 / 病害状态变更 / 文物状态变更日志。
+4. 工作台（`/dashboard`）每次进入重新拉取数据，待审批方案数量随之增加；后端在运行期间持有数据，重新打开（刷新）页面后状态保持不变。
 
 ## 为什么会牵一发动全身
 
