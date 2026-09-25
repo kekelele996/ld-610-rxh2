@@ -1,1 +1,13 @@
-export const createRelicItemDto = (overrides = {}) => ({ id: 1, relic_code: "relic code 1", name: "name 1", era: "era 1", material: "material 1", collection_level: "LOW", storage_location: "storage location 1", current_condition: "current condition 1", ...overrides });
+import type { RelicItem } from "../models/RelicItem";
+
+export const createRelicItemDto = (overrides: Partial<RelicItem> = {}): RelicItem => ({
+  id: 1,
+  relic_code: "GY-0000-000",
+  name: "未命名藏品",
+  era: "年代未知",
+  material: "材质未知",
+  collection_level: "一般",
+  storage_location: "暂存区",
+  current_condition: "STABLE",
+  ...overrides
+});

@@ -2,68 +2,89 @@ export const seed = {
   "relicItem": [
     {
       "id": 1,
-      "relic_code": "relic code 1",
-      "name": "name 1",
-      "era": "era 1",
-      "material": "material 1",
-      "collection_level": "LOW",
-      "storage_location": "storage location 1",
-      "current_condition": "current condition 1"
+      "relic_code": "GY-2024-001",
+      "name": "青花缠枝莲纹梅瓶",
+      "era": "明代",
+      "material": "瓷器",
+      "collection_level": "一级",
+      "storage_location": "陶瓷库房 A 区 12 架",
+      "current_condition": "IN_RESTORATION"
     },
     {
       "id": 2,
-      "relic_code": "relic code 2",
-      "name": "name 2",
-      "era": "era 2",
-      "material": "material 2",
-      "collection_level": "MEDIUM",
-      "storage_location": "storage location 2",
-      "current_condition": "current condition 2"
+      "relic_code": "QT-2024-014",
+      "name": "彩绘陶武官俑",
+      "era": "汉代",
+      "material": "陶器",
+      "collection_level": "二级",
+      "storage_location": "陶器库房 B 区 03 架",
+      "current_condition": "DAMAGED"
     },
     {
       "id": 3,
-      "relic_code": "relic code 3",
-      "name": "name 3",
-      "era": "era 3",
-      "material": "material 3",
-      "collection_level": "HIGH",
-      "storage_location": "storage location 3",
-      "current_condition": "current condition 3"
+      "relic_code": "YQ-2023-088",
+      "name": "银鎏金簪花钗",
+      "era": "唐代",
+      "material": "金银器",
+      "collection_level": "二级",
+      "storage_location": "金属库房 C 区 07 架",
+      "current_condition": "FRAGILE"
+    },
+    {
+      "id": 4,
+      "relic_code": "SF-2025-002",
+      "name": "绢本花鸟团扇面",
+      "era": "宋代",
+      "material": "丝织品",
+      "collection_level": "一级",
+      "storage_location": "书画库房恒温柜 05",
+      "current_condition": "STABLE"
     }
   ],
   "damageRecord": [
     {
       "id": 1,
       "relic_id": 1,
-      "damage_type": "FRAGILE",
-      "position_desc": "position desc 1",
-      "severity": "severity 1",
-      "discovered_by": "discovered by 1",
+      "damage_type": "釉面开裂",
+      "position_desc": "腹部正面自口沿向下约 12cm 贯穿裂纹",
+      "severity": "HIGH",
+      "discovered_by": "周敏",
       "discovered_at": "2026-06-11T09:00:00Z",
       "image_url": "/mock/image_url-1.png",
-      "status": "SUBMITTED"
+      "status": "CONVERTED"
     },
     {
       "id": 2,
       "relic_id": 2,
-      "damage_type": "DAMAGED",
-      "position_desc": "position desc 2",
-      "severity": "severity 2",
-      "discovered_by": "discovered by 2",
+      "damage_type": "彩绘层起甲",
+      "position_desc": "左肩及背部彩绘层大面积起甲、粉化",
+      "severity": "CRITICAL",
+      "discovered_by": "李峥",
       "discovered_at": "2026-06-12T09:00:00Z",
       "image_url": "/mock/image_url-2.png",
-      "status": "APPROVED"
+      "status": "REGISTERED"
     },
     {
       "id": 3,
       "relic_id": 3,
-      "damage_type": "IN_RESTORATION",
-      "position_desc": "position desc 3",
-      "severity": "severity 3",
-      "discovered_by": "discovered by 3",
+      "damage_type": "金属点腐蚀",
+      "position_desc": "钗头花瓣边缘点状锈蚀 5 处",
+      "severity": "MEDIUM",
+      "discovered_by": "陈朗",
       "discovered_at": "2026-06-13T09:00:00Z",
       "image_url": "/mock/image_url-3.png",
-      "status": "DRAFT"
+      "status": "REGISTERED"
+    },
+    {
+      "id": 4,
+      "relic_id": 4,
+      "damage_type": "绢丝脆化",
+      "position_desc": "扇面折痕处绢丝断裂、局部缺肉",
+      "severity": "CRITICAL",
+      "discovered_by": "周敏",
+      "discovered_at": "2026-06-15T09:00:00Z",
+      "image_url": "/mock/image_url-4.png",
+      "status": "REGISTERED"
     }
   ],
   "restorationPlan": [
@@ -71,63 +92,33 @@ export const seed = {
       "id": 1,
       "relic_id": 1,
       "damage_record_id": 1,
-      "plan_title": "plan title 1",
-      "method": "method 1",
-      "risk_assessment": "risk assessment 1",
+      "plan_title": "梅瓶贯穿裂纹清洗与粘接修复方案",
+      "method": "先以无水乙醇软化清理断面，使用 B72 树脂对位粘接，缝隙以矿物颜料作色补全。",
+      "risk_assessment": "粘接对位偏差可能影响纹饰连贯，需分段固形。",
       "approval_status": "SUBMITTED",
       "owner_id": 1
     },
     {
       "id": 2,
-      "relic_id": 2,
-      "damage_record_id": 2,
-      "plan_title": "plan title 2",
-      "method": "method 2",
-      "risk_assessment": "risk assessment 2",
-      "approval_status": "APPROVED",
-      "owner_id": 2
-    },
-    {
-      "id": 3,
-      "relic_id": 3,
-      "damage_record_id": 3,
-      "plan_title": "plan title 3",
-      "method": "method 3",
-      "risk_assessment": "risk assessment 3",
+      "relic_id": 4,
+      "damage_record_id": 4,
+      "plan_title": "团扇面折痕加固方案（草稿）",
+      "method": "拟用轻薄丝绢托裱加固，具体黏合剂待定。",
+      "risk_assessment": "待评估",
       "approval_status": "DRAFT",
-      "owner_id": 3
+      "owner_id": 1
     }
   ],
   "restorationStep": [
     {
       "id": 1,
       "plan_id": 1,
-      "step_order": "step order 1",
-      "technique": "technique 1",
-      "material_used": "material used 1",
+      "step_order": "1",
+      "technique": "断面清理",
+      "material_used": "无水乙醇、棉签",
       "operator_id": 1,
       "step_status": "SUBMITTED",
-      "finished_at": "2026-06-11T09:00:00Z"
-    },
-    {
-      "id": 2,
-      "plan_id": 2,
-      "step_order": "step order 2",
-      "technique": "technique 2",
-      "material_used": "material used 2",
-      "operator_id": 2,
-      "step_status": "APPROVED",
-      "finished_at": "2026-06-12T09:00:00Z"
-    },
-    {
-      "id": 3,
-      "plan_id": 3,
-      "step_order": "step order 3",
-      "technique": "technique 3",
-      "material_used": "material used 3",
-      "operator_id": 3,
-      "step_status": "DRAFT",
-      "finished_at": "2026-06-13T09:00:00Z"
+      "finished_at": ""
     }
   ],
   "imageVersion": [
@@ -135,31 +126,11 @@ export const seed = {
       "id": 1,
       "relic_id": 1,
       "plan_id": 1,
-      "version_no": "version no 1",
-      "image_type": "FRAGILE",
-      "file_path": "file path 1",
+      "version_no": "v1",
+      "image_type": "修复前",
+      "file_path": "/mock/image_url-1.png",
       "capture_at": "2026-06-11T09:00:00Z",
-      "note": "note 1"
-    },
-    {
-      "id": 2,
-      "relic_id": 2,
-      "plan_id": 2,
-      "version_no": "version no 2",
-      "image_type": "DAMAGED",
-      "file_path": "file path 2",
-      "capture_at": "2026-06-12T09:00:00Z",
-      "note": "note 2"
-    },
-    {
-      "id": 3,
-      "relic_id": 3,
-      "plan_id": 3,
-      "version_no": "version no 3",
-      "image_type": "IN_RESTORATION",
-      "file_path": "file path 3",
-      "capture_at": "2026-06-13T09:00:00Z",
-      "note": "note 3"
+      "note": "病害登记时拍摄"
     }
   ]
 } as const;

@@ -55,8 +55,19 @@ backend/src/routes, controllers, services, models, repositories, middlewares, co
 ## 枚举/常量出现位置清单
 
 - RelicCondition: constants/RelicCondition、types/RelicCondition、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
-- PlanApprovalStatus: constants/PlanApprovalStatus、types/PlanApprovalStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
-- DamageSeverity: constants/DamageSeverity、types/DamageSeverity、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用。
+- PlanApprovalStatus: constants/PlanApprovalStatus、types/PlanApprovalStatus、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用；其中 ACTIVE_PLAN_APPROVAL_STATUSES（DRAFT/SUBMITTED）用于“同一病害已有方案”拦截。
+- DamageSeverity: constants/DamageSeverity、types/DamageSeverity、constructors、logTemplates、errorMessages、筛选器、展示组件/控制器均有引用；其中 SEVERE_DAMAGE_SEVERITIES（HIGH/CRITICAL）用于严重病害转方案。
+- DamageRecordStatus（REGISTERED/CONVERTED/CLOSED）: 后端 constants/DamageRecordStatus、前端 constants/DamageRecordStatus、types/DamageRecordStatus、constructors、病害列表 StatusBadge、转方案服务均有引用。
+
+## 严重病害转修复方案
+
+在「病害记录」页可按严重等级（LOW/MEDIUM/HIGH/CRITICAL）筛选；仅 HIGH/CRITICAL 且未转出方案的病害显示「转修复方案」按钮。
+弹窗只需填写方案标题、修复方法（风险评估选填），文物编号由后端按病害记录自动关联，无需转抄。
+
+- 提交成功：生成 `SUBMITTED`（待审批）方案，病害记录置为 `CONVERTED`（已转方案），文物 `current_condition` 置为 `IN_RESTORATION`（修复中），工作台「待审批方案」数量 +1。
+- 同一病害已存在 `DRAFT`（草稿）或 `SUBMITTED`（待审批）方案时，后端返回 `409 PLAN_ALREADY_EXISTS`，前端提示已有方案，原病害记录与原方案均不修改。
+- 后端把数据落盘到 `DATA_DIR`（默认 `backend/.data`，容器内为命名卷 `backend_data`），进程重启或重新打开页面后上述状态保持不变。
+- 接口：`POST /api/damage-record/:id/convert-to-plan`，聚合指标 `GET /api/dashboard/stats`。
 
 ## 为什么会牵一发动全身
 
